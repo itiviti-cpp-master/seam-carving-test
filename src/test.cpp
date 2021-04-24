@@ -5,12 +5,11 @@
 
 TEST(SeamCarvingTests, ImageEnergy3x4)
 {
-    const std::vector<Image::Pixel> col0 = { Image::Pixel(255, 101,  51), Image::Pixel(255, 153,  51), Image::Pixel(255, 203,  51), Image::Pixel(255, 255,  51) };
-    const std::vector<Image::Pixel> col1 = { Image::Pixel(255, 101, 153), Image::Pixel(255, 153, 153), Image::Pixel(255, 204, 153), Image::Pixel(255, 255, 153) };
-    const std::vector<Image::Pixel> col2 = { Image::Pixel(255, 101, 255), Image::Pixel(255, 153, 255), Image::Pixel(255, 205, 255), Image::Pixel(255, 255, 255) };
+    std::vector<Image::Pixel> col0 = { Image::Pixel(255, 101,  51), Image::Pixel(255, 153,  51), Image::Pixel(255, 203,  51), Image::Pixel(255, 255,  51) };
+    std::vector<Image::Pixel> col1 = { Image::Pixel(255, 101, 153), Image::Pixel(255, 153, 153), Image::Pixel(255, 204, 153), Image::Pixel(255, 255, 153) };
+    std::vector<Image::Pixel> col2 = { Image::Pixel(255, 101, 255), Image::Pixel(255, 153, 255), Image::Pixel(255, 205, 255), Image::Pixel(255, 255, 255) };
 
-    const Image image({std::move(col0), std::move(col1), std::move(col2)});
-    SeamCarver carver(std::move(image));
+    const SeamCarver carver(Image{std::move(col0), std::move(col1), std::move(col2)});
 
     EXPECT_DOUBLE_EQ(sqrt(20808.0), carver.GetPixelEnergy(0, 0));
     EXPECT_DOUBLE_EQ(sqrt(52020.0), carver.GetPixelEnergy(1, 0));
@@ -31,12 +30,11 @@ TEST(SeamCarvingTests, ImageEnergy3x4)
 
 TEST(SeamCarvingTests, ImageVerticalSeam3x4)
 {
-    const std::vector<Image::Pixel> col0 = { Image::Pixel(255, 101,  51), Image::Pixel(255, 153,  51), Image::Pixel(255, 203,  51), Image::Pixel(255, 255,  51) };
-    const std::vector<Image::Pixel> col1 = { Image::Pixel(255, 101, 153), Image::Pixel(255, 153, 153), Image::Pixel(255, 204, 153), Image::Pixel(255, 255, 153) };
-    const std::vector<Image::Pixel> col2 = { Image::Pixel(255, 101, 255), Image::Pixel(255, 153, 255), Image::Pixel(255, 205, 255), Image::Pixel(255, 255, 255) };
+    std::vector<Image::Pixel> col0 = { Image::Pixel(255, 101,  51), Image::Pixel(255, 153,  51), Image::Pixel(255, 203,  51), Image::Pixel(255, 255,  51) };
+    std::vector<Image::Pixel> col1 = { Image::Pixel(255, 101, 153), Image::Pixel(255, 153, 153), Image::Pixel(255, 204, 153), Image::Pixel(255, 255, 153) };
+    std::vector<Image::Pixel> col2 = { Image::Pixel(255, 101, 255), Image::Pixel(255, 153, 255), Image::Pixel(255, 205, 255), Image::Pixel(255, 255, 255) };
 
-    const Image image({std::move(col0), std::move(col1), std::move(col2)});
-    SeamCarver carver(std::move(image));
+    SeamCarver carver(Image{std::move(col0), std::move(col1), std::move(col2)});
 
     std::vector<size_t> seam = carver.FindVerticalSeam();
     ASSERT_EQ(4, seam.size());
@@ -52,12 +50,11 @@ TEST(SeamCarvingTests, ImageVerticalSeam3x4)
 
 TEST(SeamCarvingTests, ImageHorizontalSeam3x4)
 {
-    const std::vector<Image::Pixel> col0 = { Image::Pixel(255, 101,  51), Image::Pixel(255, 153,  51), Image::Pixel(255, 203,  51), Image::Pixel(255, 255,  51) };
-    const std::vector<Image::Pixel> col1 = { Image::Pixel(255, 101, 153), Image::Pixel(255, 153, 153), Image::Pixel(255, 204, 153), Image::Pixel(255, 255, 153) };
-    const std::vector<Image::Pixel> col2 = { Image::Pixel(255, 101, 255), Image::Pixel(255, 153, 255), Image::Pixel(255, 205, 255), Image::Pixel(255, 255, 255) };
+    std::vector<Image::Pixel> col0 = { Image::Pixel(255, 101,  51), Image::Pixel(255, 153,  51), Image::Pixel(255, 203,  51), Image::Pixel(255, 255,  51) };
+    std::vector<Image::Pixel> col1 = { Image::Pixel(255, 101, 153), Image::Pixel(255, 153, 153), Image::Pixel(255, 204, 153), Image::Pixel(255, 255, 153) };
+    std::vector<Image::Pixel> col2 = { Image::Pixel(255, 101, 255), Image::Pixel(255, 153, 255), Image::Pixel(255, 205, 255), Image::Pixel(255, 255, 255) };
 
-    const Image image({std::move(col0), std::move(col1), std::move(col2)});
-    SeamCarver carver(std::move(image));
+    SeamCarver carver(Image{std::move(col0), std::move(col1), std::move(col2)});
 
     std::vector<size_t> seam = carver.FindHorizontalSeam();
     ASSERT_EQ(3, seam.size());
@@ -72,21 +69,20 @@ TEST(SeamCarvingTests, ImageHorizontalSeam3x4)
 
 TEST(SeamCarvingTests, ImageVerticalSeam6x5)
 {
-    const std::vector<Image::Pixel> col0 = { Image::Pixel(78, 209,  79),  Image::Pixel(224, 191,  182), Image::Pixel(117, 189, 149),
+    std::vector<Image::Pixel> col0 = { Image::Pixel(78, 209,  79),  Image::Pixel(224, 191,  182), Image::Pixel(117, 189, 149),
         Image::Pixel(163, 222, 132), Image::Pixel(211, 120, 173) };
-    const std::vector<Image::Pixel> col1 = { Image::Pixel(63, 118,  247), Image::Pixel(108, 89,  82),   Image::Pixel(171, 231, 153),
+    std::vector<Image::Pixel> col1 = { Image::Pixel(63, 118,  247), Image::Pixel(108, 89,  82),   Image::Pixel(171, 231, 153),
         Image::Pixel(187, 117, 183), Image::Pixel(188, 218, 244) };
-    const std::vector<Image::Pixel> col2 = { Image::Pixel(92, 175,  95),  Image::Pixel(80, 196, 230),   Image::Pixel(149, 164, 168),
+    std::vector<Image::Pixel> col2 = { Image::Pixel(92, 175,  95),  Image::Pixel(80, 196, 230),   Image::Pixel(149, 164, 168),
         Image::Pixel(92, 145, 69), Image::Pixel(214, 103, 68) };
-    const std::vector<Image::Pixel> col3 = { Image::Pixel(243, 73,  183), Image::Pixel(112, 156, 180),  Image::Pixel(107, 119, 71),
+    std::vector<Image::Pixel> col3 = { Image::Pixel(243, 73,  183), Image::Pixel(112, 156, 180),  Image::Pixel(107, 119, 71),
         Image::Pixel(158, 143, 79), Image::Pixel(163, 166, 246) };
-    const std::vector<Image::Pixel> col4 = { Image::Pixel(210, 109, 104), Image::Pixel(176, 178, 120),  Image::Pixel(120, 105, 138),
+    std::vector<Image::Pixel> col4 = { Image::Pixel(210, 109, 104), Image::Pixel(176, 178, 120),  Image::Pixel(120, 105, 138),
         Image::Pixel(220, 75, 222), Image::Pixel(79, 125, 246) };
-    const std::vector<Image::Pixel> col5 = { Image::Pixel(252, 101, 119), Image::Pixel(141, 151, 142),  Image::Pixel(163, 174, 196),
+    std::vector<Image::Pixel> col5 = { Image::Pixel(252, 101, 119), Image::Pixel(141, 151, 142),  Image::Pixel(163, 174, 196),
         Image::Pixel(189, 73, 214), Image::Pixel(211, 201, 98) };
 
-    const Image image({std::move(col0), std::move(col1), std::move(col2), std::move(col3), std::move(col4), std::move(col5)});
-    SeamCarver carver(std::move(image));
+    SeamCarver carver(Image{std::move(col0), std::move(col1), std::move(col2), std::move(col3), std::move(col4), std::move(col5)});
 
     std::vector<size_t> seam = carver.FindVerticalSeam();
     ASSERT_EQ(5, seam.size());
@@ -104,21 +100,20 @@ TEST(SeamCarvingTests, ImageVerticalSeam6x5)
 
 TEST(SeamCarvingTests, ImageHorizontalSeam6x5)
 {
-    const std::vector<Image::Pixel> col0 = { Image::Pixel(78, 209,  79),  Image::Pixel(224, 191,  182), Image::Pixel(117, 189, 149),
+    std::vector<Image::Pixel> col0 = { Image::Pixel(78, 209,  79),  Image::Pixel(224, 191,  182), Image::Pixel(117, 189, 149),
         Image::Pixel(163, 222, 132), Image::Pixel(211, 120, 173) };
-    const std::vector<Image::Pixel> col1 = { Image::Pixel(63, 118,  247), Image::Pixel(108, 89,  82),   Image::Pixel(171, 231, 153),
+    std::vector<Image::Pixel> col1 = { Image::Pixel(63, 118,  247), Image::Pixel(108, 89,  82),   Image::Pixel(171, 231, 153),
         Image::Pixel(187, 117, 183), Image::Pixel(188, 218, 244) };
-    const std::vector<Image::Pixel> col2 = { Image::Pixel(92, 175,  95),  Image::Pixel(80, 196, 230),   Image::Pixel(149, 164, 168),
+    std::vector<Image::Pixel> col2 = { Image::Pixel(92, 175,  95),  Image::Pixel(80, 196, 230),   Image::Pixel(149, 164, 168),
         Image::Pixel(92, 145, 69), Image::Pixel(214, 103, 68) };
-    const std::vector<Image::Pixel> col3 = { Image::Pixel(243, 73,  183), Image::Pixel(112, 156, 180),  Image::Pixel(107, 119, 71),
+    std::vector<Image::Pixel> col3 = { Image::Pixel(243, 73,  183), Image::Pixel(112, 156, 180),  Image::Pixel(107, 119, 71),
         Image::Pixel(158, 143, 79), Image::Pixel(163, 166, 246) };
-    const std::vector<Image::Pixel> col4 = { Image::Pixel(210, 109, 104), Image::Pixel(176, 178, 120),  Image::Pixel(120, 105, 138),
+    std::vector<Image::Pixel> col4 = { Image::Pixel(210, 109, 104), Image::Pixel(176, 178, 120),  Image::Pixel(120, 105, 138),
         Image::Pixel(220, 75, 222), Image::Pixel(79, 125, 246) };
-    const std::vector<Image::Pixel> col5 = { Image::Pixel(252, 101, 119), Image::Pixel(141, 151, 142),  Image::Pixel(163, 174, 196),
+    std::vector<Image::Pixel> col5 = { Image::Pixel(252, 101, 119), Image::Pixel(141, 151, 142),  Image::Pixel(163, 174, 196),
         Image::Pixel(189, 73, 214), Image::Pixel(211, 201, 98) };
 
-    const Image image({std::move(col0), std::move(col1), std::move(col2), std::move(col3), std::move(col4), std::move(col5)});
-    SeamCarver carver(std::move(image));
+    SeamCarver carver(Image{std::move(col0), std::move(col1), std::move(col2), std::move(col3), std::move(col4), std::move(col5)});
 
     std::vector<size_t> seam = carver.FindHorizontalSeam();
     ASSERT_EQ(6, seam.size());
