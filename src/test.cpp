@@ -134,3 +134,29 @@ TEST(SeamCarvingTests, ImageHorizontalSeam6x5)
     ASSERT_EQ(6, carver.GetImageWidth());
     ASSERT_EQ(4, carver.GetImageHeight());
 }
+
+TEST(SeamCarvingTests, ImageEnergy1x3)
+{
+    const std::vector<Image::Pixel> col0 = { Image::Pixel(0, 1,  2), Image::Pixel(30, 40,  50), Image::Pixel(6, 7,  8)};
+    
+    const Image image({col0});
+    SeamCarver carver(image);
+
+    EXPECT_DOUBLE_EQ(sqrt(3429), carver.GetPixelEnergy(0, 0));
+    EXPECT_DOUBLE_EQ(sqrt(108), carver.GetPixelEnergy(0, 1));
+    EXPECT_DOUBLE_EQ(sqrt(4725), carver.GetPixelEnergy(0, 2));
+}
+
+TEST(SeamCarvingTests, ImageEnergy3x1)
+{
+    const std::vector<Image::Pixel> col0 = { Image::Pixel(0, 1,  2)};
+    const std::vector<Image::Pixel> col1 = { Image::Pixel(30, 40,  50)};
+    const std::vector<Image::Pixel> col2 = { Image::Pixel(6, 7,  8)};
+    
+    const Image image({col0, col1, col2});
+    SeamCarver carver(image);
+
+    EXPECT_DOUBLE_EQ(sqrt(3429), carver.GetPixelEnergy(0, 0));
+    EXPECT_DOUBLE_EQ(sqrt(108), carver.GetPixelEnergy(1, 0));
+    EXPECT_DOUBLE_EQ(sqrt(4725), carver.GetPixelEnergy(2, 0));
+}
